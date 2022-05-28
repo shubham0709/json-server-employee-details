@@ -1,24 +1,35 @@
-import logo from './logo.svg';
 import './App.css';
+import axios from 'axios';
+import Form from './components/Form.jsx'
+import React, { useState, useEffect } from 'react';
+import Table from './components/Table.jsx'
+import Top from './components/Top.jsx'
 
 function App() {
+  const [data, setData] = useState({});
+  const [userData, setUserData] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get(`http://localhost:8080/data`)
+      .then(r => {
+        setUserData(r.data);
+        //console.log(r);
+      })
+  }, [setData])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Top></Top>
+      <div className="container">
+        <div>
+          <Form data={data} setData={setData} setUserData={setUserData} userData={userData}></Form>
+        </div>
+        <div>
+          <Table userData={userData}></Table>
+        </div>
+      </div>
+    </>
   );
 }
 

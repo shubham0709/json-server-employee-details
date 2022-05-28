@@ -1,5 +1,5 @@
-.container {
+.top {
   display: flex;
   justify-content: center;
-  gap: 5%;
+  font-size: 25px;
 }
